@@ -41,6 +41,7 @@ async function postForm(e) {
   if (response.ok) {
     displayErrors(data);
   } else {
+    displayExeptions(data);
     throw new Error(data.error);
   }
 }
@@ -56,6 +57,7 @@ async function getStatus(e) {
   if (response.ok) {
     displayData(data);
   } else {
+    displayExeptions(data);
     throw new Error(data.error);
   }
 }
@@ -84,6 +86,19 @@ function displayErrors(data) {
     }
 
   }
+  document.getElementById("resultsModalTitle").innerText = heading;
+  document.getElementById("results-content").innerHTML = results;
+  resultsModel.show();
+}
+
+function displayExeptions(data) {
+  let heading = "An Exception Ocurred";
+
+  results=`<div>the API returned status code ${data.status_code}</div>`
+  results += `<div>Error Number: ${data.error_no}</div>`
+  results += `<div>Error Text:<strong> ${data.error}</strong></div>`
+
+  
   document.getElementById("resultsModalTitle").innerText = heading;
   document.getElementById("results-content").innerHTML = results;
   resultsModel.show();
